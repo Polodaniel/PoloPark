@@ -27,5 +27,9 @@
     <ProjectReference Include="..\Shared\PoloPark.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>

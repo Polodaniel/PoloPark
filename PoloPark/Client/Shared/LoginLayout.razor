@@ -1,0 +1,49 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="currentTheme" />
+
+<style>
+    body{
+        background-color: #4e6994;
+    }
+</style>
+
+<MudContainer id="body-empty" MaxWidth="MaxWidth.Medium" Class="">
+
+    <div class="d-flex justify-center mt-16">
+        <img src="dist/img/logoBranco.png" class="imgLogoLogin" style="width: 230px; height: 170px;">
+    </div>
+
+    <div class="d-flex justify-center">
+        <MudPaper Elevation="24" Class="p-0 mt-8" Width="100%" MaxWidth="450px">
+            @Body
+        </MudPaper>
+    </div>
+    <div class="d-flex justify-center">
+        <MudText Class="mt-3" Typo="Typo.overline" Color="Color.Surface">
+            © @DateTime.Now.Year - Todos os direitos reservados para PoloFinance.
+        </MudText>
+    </div>
+</MudContainer>
+
+@code {
+    MudTheme currentTheme = new MudTheme();
+
+    MudMessageBox mbox { get; set; }
+
+    protected override void OnInitialized() =>
+    currentTheme = PaleteColors;
+
+    MudTheme PaleteColors = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            AppbarBackground = "#4e6994",
+            AppbarText = Colors.Shades.White,
+
+            Tertiary = "#4e6994",
+            Surface = "#FFFFFF",
+            //Info = "#DBDBDB"
+        }
+    };
+}

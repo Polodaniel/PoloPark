@@ -1,0 +1,140 @@
+﻿@page "/login"
+@using PoloPark.Client.Service
+@using PoloPark.Shared.Model.Account
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+@layout LoginLayout
+
+@if (ShowErrors)
+{
+        <div class="alert alert-danger" role="alert">
+            <p>@Error</p>
+        </div>
+}
+
+<div class="px-8 pb-8 pt-2">
+    <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+        <DataAnnotationsValidator />
+        <MudTextField @bind-Value="@loginModel.Email"
+                      Placeholder="Usuário"
+                      Variant="Variant.Outlined"
+                      Class="my-6"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Rounded.AccountCircle"
+                      AutoFocus="true"
+                      For="() => loginModel.Email"
+                      Disabled="@Desabilitar"
+                      name="user"></MudTextField>
+
+        <MudTextField @bind-Value="@loginModel.Password"
+                      Placeholder="Senha"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Rounded.VpnKey"
+                      Variant="Variant.Outlined"
+                      InputType="@PasswordInput"
+                      For="() => loginModel.Password"
+                      Disabled="@Desabilitar" 
+                      name="pass"/>
+
+        <div Class="d-flex justify-space-between align-center">
+            <MudCheckBox T="bool" @bind-Checked="loginModel.RememberMe" Label="Lembre-me?" Color="Color.Tertiary" Class="ml-n1 my-3"></MudCheckBox>
+        </div>
+
+        @if (ErroAoLogar)
+        {
+            <MudAlert Severity="Severity.Error" Class="mb-3">@Mensagem</MudAlert>
+        }
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Tertiary"
+                   Size="Size.Large"
+                   FullWidth="true"
+                   ButtonType=ButtonType.Submit
+                   DisableElevation=true
+                   Disabled="@Desabilitar">Logar-se</MudButton>
+
+    </EditForm>
+</div>
+
+@if (isLogin)
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" />
+}
+
+
+@*<section class="d-flex justify-center">
+     <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+        <MudCard Outlined="true" Style="width: 100%; max-width: 350px;">
+            <MudCardContent>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <MudTextField T="string" Label="Email" @bind-Value="loginModel.Email"  Required="true" />
+                <MudTextField T="string" Label="Senha" @bind-Value="loginModel.Password" InputType="InputType.Password" />
+                <MudCheckBox T="bool"   Label="Lembrar de mim?"   @bind-Value= "loginModel.RememberMe" Class="ml-n2"/>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType=ButtonType.Submit Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Size=Size.Small>Login</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </EditForm>
+</section>*@
+
+@*<div class="card">
+    <div class="card-body">
+    <h5 class="card-title">Please enter your details</h5>
+    <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+    <label for="email">Email address</label>
+    <InputText Id="email" Class="form-control" @bind-Value="loginModel.Email" />
+    <ValidationMessage For="@(() => loginModel.Email)" />
+    </div>
+    <div class="form-group">
+    <label for="password">Password</label>
+    <InputText Id="password" type="password" Class="form-control" @bind-Value="loginModel.Password" />
+    <ValidationMessage For="@(() => loginModel.Password)" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </EditForm>
+    </div>
+    </div>*@
+
+@code {
+
+    private LoginModel loginModel = new LoginModel();
+    private bool ShowErrors;
+    private string Error = "";
+    
+    protected bool Desabilitar { get; set; }
+    protected bool ErroAoLogar { get; set; }
+    protected string Mensagem { get; set; }
+    public bool isLogin { get; set; }
+
+    public InputType PasswordInput = InputType.Password;
+
+
+    private async Task HandleLogin()
+    {
+        Desabilitar = true;
+        isLogin = true;
+        ErroAoLogar = false;
+
+        ShowErrors = false;
+
+        var result = await AuthService.Login(loginModel);
+
+        if (result.Successful)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            Error = result.Error;
+            ShowErrors = true;
+        }
+    }
+
+}

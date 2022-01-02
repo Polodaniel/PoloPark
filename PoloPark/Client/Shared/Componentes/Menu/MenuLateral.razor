@@ -1,0 +1,36 @@
+﻿@*<LoginDisplay />*@
+
+<AuthorizeView>
+    <Authorized>
+        <MudPaper Width="100%" Class="d-inline-flex py-3" Square=true Elevation=0 Style="background-color: transparent;">
+            <MudGrid Spacing=0>
+                <MudItem xs=12 sm=12 md=12 lg=12 xl=12 xxl=12 Class="mb-2">
+                    <MudGrid Spacing=0>
+                        <MudItem xs=12 sm=12 md=12 lg=12 xl=12 xxl=12 Class="d-flex justify-center">
+                            <MudAvatar Style="height:70px; width:70px;" Color="Color.Primary" Class="ma-2" Variant="Variant.Outlined">A</MudAvatar>
+                        </MudItem>
+                        <MudItem xs=12 sm=12 md=12 lg=12 xl=12 xxl=12 Class="d-flex justify-center">
+                            <MudText Style="font-size: 12px;">Daniel Polo</MudText>
+                            @*<MudText Style="font-size: 10px;" Typo=Typo.caption>@context.User.Identity.Name</MudText>*@
+                        </MudItem>
+                        <MudItem xs=12 sm=12 md=12 lg=12 xl=12 xxl=12 Class="d-flex justify-center">
+                            <MudText Style="font-size: 10px;" Typo=Typo.caption>Conta Free</MudText>
+                        </MudItem>
+                    </MudGrid>
+                    <MudDivider Class="my-2"/>
+                </MudItem>
+                <MudItem xs=12 sm=12 md=12 lg=12 xl=12 xxl=12>
+                    <MudNavMenu Class="mud-width-full">
+                        <MudNavLink Href="/RecursosPremium" Icon=@Icons.Rounded.WorkspacePremium IconColor=Color.Warning>Recursos Premium</MudNavLink>
+                        <MudNavLink Href="/" Icon=@Icons.Filled.Dashboard>Dashboard</MudNavLink>
+                        
+                        <CadastroMenu />
+
+
+
+                    </MudNavMenu>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </Authorized>
+</AuthorizeView>
