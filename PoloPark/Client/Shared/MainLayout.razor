@@ -1,17 +1,114 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<MudThemeProvider Theme="currentTheme" />
+<MudDialogProvider/>
+<MudSnackbarProvider/>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+<AuthorizeView>
+    <Authorized>
+        <MudLayout>
+            <MudAppBar Elevation="1" Dense="true">
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                <MudText Typo="Typo.h6" Class="ml-3">Polo Park - Sistema de Estacionamento</MudText>
+                <MudSpacer />
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+              <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Tertiary" Dense=true AnchorOrigin=Origin.CenterCenter>
+                  <MudMenuItem><MudText Style="font-size: 12px;">Meu Perfil</MudText></MudMenuItem>
+                  <MudMenuItem Link="LogOut"><MudText Style="font-size: 12px;">Sair</MudText></MudMenuItem>
+              </MudMenu>
+
+            </MudAppBar>
+            <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+                <MenuLateral />
+            </MudDrawer>
+            <MudMainContent>
+                <MudContainer Fixed="true" Class="pt-3">
+                    @Body
+                </MudContainer>
+            </MudMainContent>
+        </MudLayout>
+    </Authorized>
+    <NotAuthorized>
+        <a href="Register">Register</a>
+        <a href="Login">Log in</a>
+
+        <MudLayout>
+          <MudAppBar Elevation="1" Dense="true" Class="">
+              <MudText Typo="Typo.h6" Class="ml-3">PoloFinance</MudText>
+              <MudSpacer />
+              <MudButton Link="Register"
+                         Variant=Variant.Filled
+                         Size=Size.Small
+                         DisableElevation=true
+                         Color=Color.Primary
+                         Class="mr-1">
+                  Registrar
+              </MudButton>
+              <MudButton Link="Login"
+                         Variant=Variant.Filled
+                         Size=Size.Small
+                         DisableElevation=true
+                         Color=Color.Primary
+                         Class="ml-1">
+                  Login
+              </MudButton>
+          </MudAppBar>
+          <MudMainContent>
+              <MudContainer Fixed="true" Class="pt-3">
+                  @Body
+              </MudContainer>
+          </MudMainContent>
+        </MudLayout>
+
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    protected bool _drawerOpen = true;
+
+    protected MudTheme currentTheme = new MudTheme();
+
+    protected void DrawerToggle() => _drawerOpen = !_drawerOpen;
+
+    protected MudTheme primaryTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            AppbarBackground = "#4e6994",
+            AppbarText = Colors.Shades.White,
+            Tertiary = "#6d93cf",
+            //Surface = "#FFFFFF",
+            //Info = "#DBDBDB"
+            //AppbarText = "rgba(255,255,255, 0.70)",
+        }
+    };
+
+    protected MudTheme darkTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Black = "#27272f",
+            Background = "#32333d",
+            BackgroundGrey = "#27272f",
+            Surface = "#373740",
+            DrawerBackground = "#27272f",
+            DrawerText = "rgba(255,255,255, 0.50)",
+            DrawerIcon = "rgba(255,255,255, 0.50)",
+            AppbarBackground = "#27272f",
+            AppbarText = "rgba(255,255,255, 0.70)",
+            TextPrimary = "rgba(255,255,255, 0.70)",
+            TextSecondary = "rgba(255,255,255, 0.50)",
+            ActionDefault = "#adadb1",
+            ActionDisabled = "rgba(255,255,255, 0.26)",
+            ActionDisabledBackground = "rgba(255,255,255, 0.12)",
+            Divider = "rgba(255,255,255, 0.12)",
+            DividerLight = "rgba(255,255,255, 0.06)",
+            TableLines = "rgba(255,255,255, 0.12)",
+            LinesDefault = "rgba(255,255,255, 0.12)",
+            LinesInputs = "rgba(255,255,255, 0.3)",
+            TextDisabled = "rgba(255,255,255, 0.2)"
+        }
+    };
+
+    protected override void OnInitialized() => currentTheme = primaryTheme;
+}
