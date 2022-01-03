@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PoloPark.Server.Model;
 using PoloPark.Shared.Model.Account;
 using PoloPark.Shared.Model.Account.Result;
 
@@ -11,15 +12,18 @@ namespace PoloPark.Server.Account
     {
         //private static UserModel LoggedOutUser = new UserModel { IsAuthenticated = false };
 
-        private readonly UserManager<IdentityUser> _userManager;
+        //private readonly UserManager<IdentityUser> _userManager;
 
-        public AccountsController(UserManager<IdentityUser> userManager) =>
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        //public AccountsController(UserManager<IdentityUser> userManager) =>
+        public AccountsController(UserManager<ApplicationUser> userManager) =>
             _userManager = userManager;
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RegisterModel model)
         {
-            var newUser = new IdentityUser { UserName = model.Email, Email = model.Email };
+            var newUser = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
             var result = await _userManager.CreateAsync(newUser, model.Password);
 

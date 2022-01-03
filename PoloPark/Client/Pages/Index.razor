@@ -1,4 +1,6 @@
 ﻿@page "/"
+@page "/home"
+
 @inherits IndexBase
 
 <PageTitle>@Titulo - PoloPark</PageTitle>
@@ -7,91 +9,61 @@
 
 <MudGrid>
     <MudItem xs=12 sm=12 md=3 lg=3 xl=3 xxl=3>
-        <MudCard Outlined=true>
-            <MudCardContent>
-                <MudText>Saldo Atual</MudText>
-                <MudText Typo=Typo.body2>The quick, brown fox jumps over a lazy dog.</MudText>
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant=Variant.Text Color=Color.Primary Size=Size.Small>Learn More</MudButton>
-            </MudCardActions>
+        <MudCard Outlined=true Class="d-flex flex-row pt-3 pb-4" Style="height:80px;">
+            <MudIcon Icon=@Icons.Rounded.DirectionsCar Color=Color.Info Class="mx-4" Style="width: 54px; height: 54px;"></MudIcon>
+            <div>
+                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Total de Vagas</MudText>
+                <MudText Typo="Typo.h5">0</MudText>
+            </div>
         </MudCard>
     </MudItem>
     <MudItem xs=12 sm=12 md=3 lg=3 xl=3 xxl=3>
-        <MudCard Outlined=true>
-            <MudCardContent>
-                <MudText>Receitas</MudText>
-                <MudText Typo=Typo.body2>The quick, brown fox jumps over a lazy dog.</MudText>
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant=Variant.Text Color=Color.Primary Size=Size.Small>Learn More</MudButton>
-            </MudCardActions>
+        <MudCard Outlined=true Class="d-flex flex-row pt-3 pb-4" Style="height:80px;">
+            <MudIcon Icon=@Icons.Rounded.DirectionsCar Color=Color.Info Class="mx-4" Style="width: 54px; height: 54px;"></MudIcon>
+            <div>
+                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Vagas em uso</MudText>
+                <MudText Typo="Typo.h5">0</MudText>
+            </div>
         </MudCard>
     </MudItem>
     <MudItem xs=12 sm=12 md=3 lg=3 xl=3 xxl=3>
-        <MudCard Outlined=true>
-            <MudCardContent>
-                <MudText>Despesas</MudText>
-                <MudText Typo=Typo.body2>The quick, brown fox jumps over a lazy dog.</MudText>
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant=Variant.Text Color=Color.Primary Size=Size.Small>Learn More</MudButton>
-            </MudCardActions>
+        <MudCard Outlined=true Class="d-flex flex-row pt-3 pb-4" Style="height:80px;">
+            <MudIcon Icon=@Icons.Rounded.DirectionsCar Color=Color.Info Class="mx-4" Style="width: 54px; height: 54px;"></MudIcon>
+            <div>
+                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Vagas disponíveis</MudText>
+                <MudText Typo="Typo.h5">0</MudText>
+            </div>
         </MudCard>
     </MudItem>
     <MudItem xs=12 sm=12 md=3 lg=3 xl=3 xxl=3>
-        <MudCard Outlined=true>
-            <MudCardContent>
-                <MudText>Cartão de Crédito</MudText>
-                <MudText Typo=Typo.body2>The quick, brown fox jumps over a lazy dog.</MudText>
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant=Variant.Text Color=Color.Primary Size=Size.Small>Learn More</MudButton>
-            </MudCardActions>
+        <MudCard Outlined=true Class="d-flex flex-row pt-3 pb-4" Style="height:80px;">
+            <MudIcon Icon=@Icons.Rounded.DirectionsCar Color=Color.Info Class="mx-4" Style="width: 54px; height: 54px;"></MudIcon>
+            <div>
+                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Fluxo de Veiculos do dia</MudText>
+                <MudText Typo="Typo.h5">0</MudText>
+            </div>
         </MudCard>
     </MudItem>
     <MudItem xs=12 sm=12 md=6 lg=6 xl=6 xxl=6>
-        <MudCard Outlined=true>
+        <MudCard Outlined=true Style="height:300px;">
             <MudCardContent>
-                <MudText>Receitas do Mês</MudText>
-                <MudText Typo=Typo.body2>The quick, brown fox jumps over a lazy dog.</MudText>
+                <MudText>Veiculos por Categoria atual</MudText>
+                    <MudChart ChartType=ChartType.Bar
+                              ChartSeries="@Series" 
+                              XAxisLabels="@XAxisLabels" 
+                              Width="100%" />
             </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant=Variant.Text Color=Color.Primary Size=Size.Small>Learn More</MudButton>
-            </MudCardActions>
         </MudCard>
     </MudItem>    
-    <MudItem xs=12 sm=12 md=6 lg=6 xl=6 xxl=6>
-        <MudCard Outlined=true>
-            <MudCardContent>
-                <MudText>Despesas do Mês</MudText>
-                <MudText Typo=Typo.body2>The quick, brown fox jumps over a lazy dog.</MudText>
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant=Variant.Text Color=Color.Primary Size=Size.Small>Learn More</MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
-    <MudItem xs=12 sm=12 md=6 lg=6 xl=6 xxl=6>
-        <MudCard Outlined=true>
-            <MudCardContent>
-                <MudText>Receitas x Despesas nos ultimos 12 mêses</MudText>
-                <MudText Typo=Typo.body2>The quick, brown fox jumps over a lazy dog.</MudText>
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant=Variant.Text Color=Color.Primary Size=Size.Small>Learn More</MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
         <MudItem xs=12 sm=12 md=6 lg=6 xl=6 xxl=6>
-        <MudCard Outlined=true>
+        <MudCard Outlined=true Style="height:300px;">
             <MudCardContent>
-                <MudText>Cartão de Crédito</MudText>
-                <MudText Typo=Typo.body2>The quick, brown fox jumps over a lazy dog.</MudText>
+                <MudText>Veiculos por Categoria do dia</MudText>
+                <MudChart ChartType=ChartType.Bar
+                              ChartSeries="@Series" 
+                              XAxisLabels="@XAxisLabels" 
+                              Width="100%" />
             </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant=Variant.Text Color=Color.Primary Size=Size.Small>Learn More</MudButton>
-            </MudCardActions>
         </MudCard>
-    </MudItem>
+    </MudItem>    
 </MudGrid>

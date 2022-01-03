@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using PoloPark.Server.Data;
+using PoloPark.Server.Model;
 using PoloPark.Shared.Model.Account;
 using PoloPark.Shared.Model.Account.Result;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,13 +16,22 @@ namespace PoloPark.Server.Account
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _contexto;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        //private readonly SignInManager<IdentityUser> _signInManager;
 
         public LoginController(IConfiguration configuration,
-                               SignInManager<IdentityUser> signInManager)
+                               SignInManager<ApplicationUser> signInManager,
+                                ApplicationDbContext contexto,
+                                UserManager<ApplicationUser> userManager)
+                               //SignInManager<IdentityUser> signInManager)
         {
+            _userManager = userManager;
             _configuration = configuration;
             _signInManager = signInManager;
+            _contexto = contexto;
         }
 
         [HttpPost]
@@ -28,11 +39,17 @@ namespace PoloPark.Server.Account
         {
             var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, false, false);
 
-            if (!result.Succeeded) return BadRequest(new LoginResult { Successful = false, Error = "Username and password are invalid." });
+            if (!result.Succeeded) 
+                return BadRequest(new LoginResult { Successful = false, Error = "Username and password are invalid." });
+
+            var User = _signInManager.UserManager.FindByEmailAsync(login.Email)?.Result;
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, login.Email)
+                new Claim(ClaimTypes.Name, login.Email),
+                new Claim(nameof(User.Nome), User?.Nome),
+                new Claim(nameof(User.UserID), User?.UserID.ToString()),
+                new Claim(nameof(User.TipoConta), ((int)User?.TipoConta).ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSecurityKey"]));

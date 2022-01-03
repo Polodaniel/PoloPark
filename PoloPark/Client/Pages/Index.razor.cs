@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace PoloPark.Client.Pages
 {
@@ -17,6 +18,16 @@ namespace PoloPark.Client.Pages
 
         #region Eventos
 
+        #endregion
+
+        #region Graficos
+        public int Index = 0;
+
+        public List<ChartSeries> Series = new List<ChartSeries>()
+        {
+            new ChartSeries() { Name = "Veiculo", Data = new double[] { 3, 6, 4, 1 } },
+        };
+        public string[] XAxisLabels = { "Carro", "Moto", "Camionete", "Caminhão"};
         #endregion
     }
 }

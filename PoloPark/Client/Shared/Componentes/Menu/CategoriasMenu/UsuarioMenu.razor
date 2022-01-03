@@ -1,0 +1,12 @@
+﻿@inherits UsuarioMenuBase
+
+<MudGrid Spacing=0>
+    <MudItem xs=12 sm=12 md=4 lg=4 xl=4 xxl=4>
+        <MudAvatar Style="height:55px; width:55px;" Color="Color.Primary" Class="ma-2" Variant="Variant.Outlined">A</MudAvatar>
+    </MudItem>
+    <MudItem xs=12 sm=12 md=8 lg=8 xl=8 xxl=8 Class="mt-4">
+        <MudText Style="font-size: 12px;">@NomeUsuario</MudText>
+        <MudText Style="font-size: 10px;" Typo=Typo.caption>@Conta.ObterDescricaoEnum()</MudText>
+    </MudItem>
+</MudGrid>
+<MudDivider Class="my-2"/>
